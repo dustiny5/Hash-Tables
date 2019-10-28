@@ -51,7 +51,28 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Instantiate LP
+        lp = LinkedPair(key, value)
+        
+        # Get index using hash method
+        index = self._hash_mod(key)
+        
+        # If None then insert LP
+        if self.storage[index] == None:
+            self.storage[index] = lp
+          
+        # If not None then link LP
+        else:
+            current = self.storage[index]
+            # Loop to the end of the LP
+            while current:
+                # If .next is none then set current.next to LP
+                if current.next == None:
+                    current.next = lp
+                    break
+                else:
+                    current = current.next
+
 
 
 
@@ -63,7 +84,15 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Get index using hash method
+        index = self._hash_mod(key)
+        
+        if not self.storage[index]:
+            print('Invalid Key')
+        elif self.storage[index].key == key:
+            self.storage[index] = None
+            print(f'Removed Key: {key}')
+        
 
 
     def retrieve(self, key):
@@ -74,7 +103,13 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Get index using hash method
+        index = self._hash_mod(key)
+        
+        if not self.storage[index]:
+            print('Invalid Key')
+        elif self.storage[index].key == key:
+            return self.storage[index].value
 
 
     def resize(self):
@@ -84,7 +119,16 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # Resize to double
+        self.capacity *= 2
+        new_storage = [None] * self.capacity
+        
+        # Copy old storage to new storage
+        for i in range(len(self.storage)):
+          new_storage[i] = self.storage[i]
+          
+        # Save new storage
+        self.storage = new_storage
 
 
 
