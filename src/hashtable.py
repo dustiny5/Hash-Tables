@@ -85,13 +85,24 @@ class HashTable:
         Fill this in.
         '''
         # Get index using hash method
-        index = self._hash_mod(key)
+        current = self.storage[index]
+        prev = None
         
-        if not self.storage[index]:
-            print('Invalid Key')
-        elif self.storage[index].key == key:
-            self.storage[index] = None
+        if not current:
+          print('Invalid Key')
+        
+        while current:
+          if current.key == key and prev == None:
+            self.storage[index] = current.next
             print(f'Removed Key: {key}')
+            break
+          elif current.key == key and prev != None:
+            prev.next = current.next
+            print(f'Removed Key: {key}')
+            break
+          else:
+            prev = current
+            current = current.next
         
 
 
@@ -106,10 +117,15 @@ class HashTable:
         # Get index using hash method
         index = self._hash_mod(key)
         
-        if not self.storage[index]:
-            print('Invalid Key')
-        elif self.storage[index].key == key:
-            return self.storage[index].value
+        current = self.storage[index]
+        
+        while current:
+          if current.key == key:
+            return current.value
+          else:
+            current = current.next
+        else:
+          print('Invalid Key')
 
 
     def resize(self):
