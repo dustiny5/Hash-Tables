@@ -125,7 +125,7 @@ class HashTable:
         
         # Copy old storage to new storage
         for i in range(len(self.storage)):
-          new_storage[i] = self.storage[i]
+            new_storage[i] = self.storage[i]
           
         # Save new storage
         self.storage = new_storage
