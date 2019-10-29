@@ -92,17 +92,17 @@ class HashTable:
           print('Invalid Key')
         
         while current:
-          if current.key == key and prev == None:
-            self.storage[index] = current.next
-            print(f'Removed Key: {key}')
-            break
-          elif current.key == key and prev != None:
-            prev.next = current.next
-            print(f'Removed Key: {key}')
-            break
-          else:
-            prev = current
-            current = current.next
+            if current.key == key and prev == None:
+                self.storage[index] = current.next
+                print(f'Removed Key: {key}')
+                break
+            elif current.key == key and prev != None:
+                prev.next = current.next
+                print(f'Removed Key: {key}')
+                break
+            else:
+                prev = current
+                current = current.next
         
 
 
@@ -120,12 +120,12 @@ class HashTable:
         current = self.storage[index]
         
         while current:
-          if current.key == key:
-            return current.value
-          else:
-            current = current.next
+            if current.key == key:
+                return current.value
+            else:
+                current = current.next
         else:
-          print('Invalid Key')
+            print('Invalid Key')
 
 
     def resize(self):
@@ -137,14 +137,30 @@ class HashTable:
         '''
         # Resize to double
         self.capacity *= 2
-        new_storage = [None] * self.capacity
         
-        # Copy old storage to new storage
-        for i in range(len(self.storage)):
-            new_storage[i] = self.storage[i]
-          
+        # Save old storage
+        old_storage = self.storage
+        
         # Save new storage
-        self.storage = new_storage
+        self.storage = [None] * self.capacity
+        
+        # Loop over old_strage and insert back into resized storage
+        for current in old_storage:
+            if current is not None:
+                while current:
+                
+                    # Get key value pair of current LP
+                    key, value = current.key, current.value
+                    self.insert(key, value)
+                    
+                    # Save next variable then override current.next to None
+                    next_var = current.next
+                    current.next = None
+                    
+                    # Continue to next LP
+                    current = next_var
+          
+          
 
 
 
