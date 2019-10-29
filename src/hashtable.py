@@ -85,6 +85,8 @@ class HashTable:
         Fill this in.
         '''
         # Get index using hash method
+        index = self._hash_mod(key)
+        
         current = self.storage[index]
         prev = None
         
