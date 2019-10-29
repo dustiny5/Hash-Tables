@@ -149,13 +149,14 @@ class HashTable:
         # Loop over old_strage and insert back into resized storage
         for current in old_storage:
             if current is not None:
+                # Loops thorugh all LinkedList for each index, if it exists.
                 while current:
                 
                     # Get key value pair of current LP
                     key, value = current.key, current.value
                     self.insert(key, value)
                     
-                    # Save next variable then override current.next to None
+                    # Save next variable then override current.next to None ro reset pointer
                     next_var = current.next
                     current.next = None
                     
